@@ -1,0 +1,5 @@
+BUILDNAME=armv6
+TARGET=arm
+TARGET_ARCH=armv6
+KERN_NO_TARGET_CPUTYPE="yes"
+LOCAL_DIRS="tools/tools/ath     tools/tools/net80211/wlanstats"

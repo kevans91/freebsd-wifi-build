@@ -1,4 +1,4 @@
-X_BUILD_BASE_CFG="armeb"
+X_BUILD_BASE_CFG="armv6"
 KERNCONF=ALLWINNER
 
 # The configuration load/save script needs to know the
