@@ -434,6 +434,15 @@ ${INSTALL_DEF_FILE} ${X_STAGING_TMPDIR}/ttys ${X_STAGING_FSROOT}/c/etc/
 if [ "${MFSROOT_INC_MODULES}" = "YES" ]; then
 	echo "*** Including modules.."
 
+	if echo ${MFSROOT_INC_MODULE_LIST} | egrep -q 'if_tun|if_tap'; then
+		# XXX TODO: This is a bit of a compatibility hack; we check to see
+		# if our kernel build produced an if_tuntap.ko. If it did, we'll need
+		# to copy that over as well, for now.  if_tun and if_tap will eventually
+		# go away.
+		if [ -e ${X_DESTDIR}/boot/kernel.${KERNCONF}/if_tuntap.ko ]; then
+			MFSROOT_INC_MODULE_LIST="${MFSROOT_INC_MODULE_LIST} if_tuntap"
+		fi
+	fi
 	for i in ${MFSROOT_INC_MODULE_LIST}; do
 		${INSTALL_DEF_KLD} ${X_DESTDIR}/boot/kernel.${KERNCONF}/${i}.ko ${X_STAGING_FSROOT}/boot/kernel/ || exit 1
 	done
